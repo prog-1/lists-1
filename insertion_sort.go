@@ -16,7 +16,7 @@ func InsertionSort(l *list.List, less LessFunc) {
 
 // SortedInsert inserts a new element with a given value in a sorted list
 // (while preserving a sorted order);
-func SortedInsert(l *list.List, v int) *list.Element {
+func SortedInsert(l *list.List, v int, less LessFunc) *list.Element {
 	// TODO
 	return nil
 }
