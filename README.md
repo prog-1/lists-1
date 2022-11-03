@@ -7,9 +7,11 @@
 
 ## Home Exercises
 
-> **Note**
-> Package `github.com/prog-1/list` is implemented as a separate subpackage,
-> and it provides a rename to ensure you don't need extra deps and permissions.
+Package `github.com/prog-1/list` is implemented as a separate subpackage.
+Go provides an easy way of working with multiple packages. Reed more about it
+at https://go.dev/doc/tutorial/workspaces. You may also want to read
+https://go.dev/ref/mod#go-mod-file-replace to check on how do we allow
+two package to co-exist together.
 
 1. Implement missing `list.List` methods and test.
 2. Implement `InsertionSort` and `InsertSorted` functions. While implementing
