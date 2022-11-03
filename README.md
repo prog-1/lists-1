@@ -7,4 +7,7 @@
 
 ## Home Exercises
 
-1. 
+1. Implement missing `list.List` methods.
+2. Implement `InsertionSort` and `InsertSorted` functions. While implementing
+   the functions, it is not allowed to add any extra helpers to `list.List`. You
+   must use only the methods exported by `list.List` and `list.Element`.
