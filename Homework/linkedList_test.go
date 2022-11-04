@@ -85,7 +85,6 @@ func (l *List) Find(v T) *Element {
 }
 
 func (l *List) InsertAfter(v T, prev *Element) *Element {
-	//we need to find element..
 	e := NewElement(v) //creating new list element
 	e.next = prev.next //setting prev el next el as new el next el
 	prev.next = e      //setting new el as prev el next el
@@ -93,8 +92,17 @@ func (l *List) InsertAfter(v T, prev *Element) *Element {
 	return e
 }
 
+//finds the place for given element in sorted list
 func (l *List) SortedInsert(v T) *Element {
 	el := l.head
+
+	//if given el is smallest
+	//or slice is empty
+	if l.len == 0 || v <= l.head.Value {
+		l.PushFront(v)
+		return l.head
+	}
+
 	for el.next != nil && el.next.Value < v {
 		el = el.next
 	}
@@ -102,8 +110,11 @@ func (l *List) SortedInsert(v T) *Element {
 }
 
 func InsertionSort(l *List) *List {
-	//TODO
-	return nil
+	sl := &List{} //sorted list
+	for el := l.head; el != nil; el = el.next {
+		sl.SortedInsert(el.Value)
+	}
+	return sl
 }
 
 //Converts linked list into slice
@@ -136,12 +147,15 @@ func SliceToListBack(s []int) *List {
 
 // func main() {
 // 	l := &List{}
-// 	l.PushFront(25)
+// 	l.PushBack(2)
+// 	l.PushBack(1)
 // 	l.PushBack(3)
-// 	l.PushFront(60)
-// 	Print(l)
-// 	fmt.Println(ListToSlice(l))
+// 	l.PushBack(5)
+// 	l.PushBack(4)
+// 	Print(InsertionSort(l))
 // }
+
+//TESTS
 
 func TestPushFront(t *testing.T) {
 	for _, tc := range []struct {
@@ -237,7 +251,8 @@ func TestSortedInsert(t *testing.T) {
 	}{
 		{"Sorted Insert 1", []int{1, 2, 3, 5}, 4, []int{1, 2, 3, 4, 5}},
 		{"Sorted Insert 2", []int{10, 20, 30, 40}, 25, []int{10, 20, 25, 30, 40}},
-		//{"Sorted Insert 3", []int{10, 20, 30, 40}, 50, []int{10, 20, 30, 40, 50}},
+		{"Sorted Insert 3", []int{10, 20, 30, 40}, 5, []int{5, 10, 20, 30, 40}},
+		{"Sorted Insert 3", []int{}, 5, []int{5}},
 	} {
 		t.Run(tc.name, func(t *testing.T) {
 			//List from slice
@@ -246,6 +261,29 @@ func TestSortedInsert(t *testing.T) {
 			l.SortedInsert(T(tc.v))
 			//Checking
 			if !reflect.DeepEqual(ListToSlice(l), tc.want) {
+				t.Errorf("got = %v, want = %v", tc.s, tc.want)
+			}
+		})
+	}
+}
+
+func TestInsertionSort(t *testing.T) {
+	for _, tc := range []struct {
+		name string
+		s    []int
+		want []int
+	}{
+		{"Insertion Sort 1", []int{2, 1, 3, 5, 4}, []int{1, 2, 3, 4, 5}},
+		{"Insertion Sort 2", []int{2, 2, 1, 5, 4}, []int{1, 2, 2, 4, 5}},
+		{"Insertion Sort 3", []int{1, 2, 3, 4, 5}, []int{1, 2, 3, 4, 5}},
+		{"Insertion Sort 4", []int{1}, []int{1}},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			//List from slice
+			l := SliceToListBack(tc.s)
+			//Checking
+			if !reflect.DeepEqual(ListToSlice(InsertionSort(l)), tc.want) {
+				Print(InsertionSort(l))
 				t.Errorf("got = %v, want = %v", tc.s, tc.want)
 			}
 		})
@@ -262,6 +300,7 @@ func main() {
 			{Name: "Test Find", F: TestFind},
 			{Name: "Test Insert After", F: TestInsertAfter},
 			{Name: "Test Sorted Insert", F: TestSortedInsert},
+			{Name: "Test Insertion Sort", F: TestInsertionSort},
 		},
 		/* benchmarks */ nil /* examples */, nil)
 }
