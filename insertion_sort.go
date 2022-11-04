@@ -11,7 +11,10 @@ type LessFunc func(a, b int) bool
 
 // InsertionSort rearranges the list to become sorted.
 func InsertionSort(l *list.List, less LessFunc) {
-	// TODO
+	temp := l.Front()
+	for temp.Next() != nil {
+
+	}
 }
 
 // SortedInsert inserts a new element with a given value in a sorted list
