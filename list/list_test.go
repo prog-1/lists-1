@@ -29,7 +29,6 @@ func list(e ...int) func() List {
 		for i := range e {
 			l.PushBack(e[i])
 		}
-		fmt.Println(format(l))
 		return l
 	}
 }
