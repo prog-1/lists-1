@@ -16,8 +16,7 @@ func TestList(t *testing.T) {
 		{"Len5", list(1, 2, 3, 4, 5), dontCare, checkLen(5)},
 	} {
 		t.Run(tc.name, func(t *testing.T) {
-			got := tc.initF()
-			want := tc.wantF()
+			got, want := tc.initF(), tc.wantF()
 			if !tc.comp(got, want) {
 				t.Errorf("got = %v, want = %v", format(got), format(want))
 			}
