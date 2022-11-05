@@ -12,8 +12,8 @@ func TestList(t *testing.T) {
 		initF, wantF func() List
 		comp         func(a, b List) bool
 	}{
-		{"Len0", list(), dontCare, checkLen(0)},
-		{"Len5", list(1, 2, 3, 4, 5), dontCare, checkLen(5)},
+		{"Len0", list(), dontCare, wantLen(0)},
+		{"Len5", list(1, 2, 3, 4, 5), dontCare, wantLen(5)},
 	} {
 		t.Run(tc.name, func(t *testing.T) {
 			got, want := tc.initF(), tc.wantF()
@@ -48,7 +48,7 @@ func equal(a, b List) bool {
 	return true
 }
 
-func checkLen(want uint) func(a, _ List) bool {
+func wantLen(want uint) func(a, _ List) bool {
 	return func(a, _ List) bool { return a.Len() == want }
 }
 
