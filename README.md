@@ -13,6 +13,10 @@ at https://go.dev/doc/tutorial/workspaces. You may also want to read
 https://go.dev/ref/mod#go-mod-file-replace to check on how do we allow
 two packages to co-exist together.
 
+> **Note**
+> You have to add tests only for those functions that you have to implement or
+> modify in the exercises below.
+
 1. Implement missing `list.List` methods and tests.
 2. Implement `InsertionSort` and `InsertSorted` functions and tests. While implementing
    the functions, it is not allowed to add any extra helpers to `list.List`. You
