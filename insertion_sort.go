@@ -142,7 +142,7 @@ func main() {
 	// Print(l)
 	// fmt.Println(l.SortedInsert(2))
 	// Print(l)
-	Print(InsertionSort(l))
+	InsertionSort(l)
 
 	// for n := l.Front(); n != nil; n = n.Next() {
 	// 	fmt.Println(n.Value)
