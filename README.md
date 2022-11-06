@@ -27,4 +27,4 @@ You have to add tests only for those functions that you have to implement or mod
 in the exercises below.
 
 1. Implement missing `list.List` methods and tests.
-2. Implement `InsertionSort` and `InsertSorted` functions and tests.
+2. Implement `InsertionSort` and `SortedInsert` functions and tests.
