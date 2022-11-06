@@ -150,7 +150,7 @@ func TestInsertAfter(t *testing.T) {
 	for _, tc := range []struct {
 		name         string
 		list         func() List
-		input, after int
+		value, after int
 		want         func() List
 	}{
 		{"1", list(1), 1, 1, list(1, 1)},
@@ -164,9 +164,9 @@ func TestInsertAfter(t *testing.T) {
 	} {
 		t.Run(fmt.Sprint(tc.name), func(t *testing.T) {
 			l := tc.list()
-			l.InsertAfter(tc.input, l.Find(tc.after))
+			l.InsertAfter(tc.value, l.Find(tc.after))
 			if !equal(l, tc.want()) {
-				t.Errorf("InsertAfter(%v %v %v) = %v, want %v", format(tc.list()), tc.input, tc.after, format(l), format(tc.want()))
+				t.Errorf("InsertAfter(%v %v %v) = %v, want %v", format(tc.list()), tc.value, tc.after, format(l), format(tc.want()))
 			}
 		})
 	}
@@ -176,7 +176,7 @@ func TestSwapElements(t *testing.T) {
 	for _, tc := range []struct {
 		name            string
 		list            func() List
-		input, swapwith int
+		value, swapwith int
 		want            func() List
 	}{
 		{"1", list(1, 2), 1, 2, list(2, 1)},
@@ -190,9 +190,9 @@ func TestSwapElements(t *testing.T) {
 	} {
 		t.Run(fmt.Sprint(tc.name), func(t *testing.T) {
 			l := tc.list()
-			l.SwapElements(tc.input, tc.swapwith)
+			l.SwapElements(tc.value, tc.swapwith)
 			if !equal(l, tc.want()) {
-				t.Errorf("InsertAfter(%v %v %v) = %v, want %v", format(tc.list()), tc.input, tc.swapwith, format(l), format(tc.want()))
+				t.Errorf("InsertAfter(%v %v %v) = %v, want %v", format(tc.list()), tc.value, tc.swapwith, format(l), format(tc.want()))
 			}
 		})
 	}
