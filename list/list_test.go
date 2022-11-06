@@ -59,3 +59,70 @@ func format(l List) string {
 	b.WriteString("->|")
 	return b.String()
 }
+
+func TestPushBack(t *testing.T) {
+	for _, tc := range []struct {
+		name         string
+		initF, wantF func() List
+		v            int
+	}{
+		{"case-1", list(), list(1), 1},
+		{"case-2", list(1, 2, 3, 4, 5), list(1, 2, 3, 4, 5, 6), 6},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			got, want := tc.initF(), tc.wantF()
+			got.PushBack(tc.v)
+			if !equal(got, want) {
+				t.Errorf("got = %v, want = %v", format(got), format(want))
+			}
+		})
+	}
+}
+
+func TestFind(t *testing.T) {
+	for _, tc := range []struct {
+		name  string
+		initF func() List
+		v     int
+		want  bool
+	}{
+		{"case-1", list(), 1, false},
+		{"case-2", list(1, 2, 3), 3, true},
+		{"case-3", list(1, 2, 3, 4, 5), 4, true},
+		{"case-4", list(1, 2, 3), 5, false},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			l := tc.initF()
+			got := l.Find(tc.v)
+			if tc.want && got == nil {
+				t.Errorf("got nil, want %v", tc.v)
+			} else if tc.want && got.Value != tc.v {
+				t.Errorf("got %v, want %v", got.Value, tc.v)
+			} else if !tc.want && got != nil {
+				t.Errorf("got %v, want nil", got.Value)
+			}
+		})
+	}
+}
+
+func TestInsertAfter(t *testing.T) {
+	for _, tc := range []struct {
+		name         string
+		initF, wantF func() List
+		v, prev      int
+	}{
+		{"case-1", list(1, 2), list(1, 2, 3), 3, 2},
+		{"case-2", list(1, 2, 4), list(1, 2, 3, 4), 3, 2},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			l, want := tc.initF(), tc.wantF()
+			prev := l.Find(tc.prev)
+			got := l.InsertAfter(tc.v, prev)
+			if got.Value != tc.v {
+				t.Errorf("got = %v, want = %v", got.Value, tc.v)
+			} else if l != want {
+				t.Errorf("got = %v, want = %v", format(l), format(want))
+			}
+		})
+	}
+}
