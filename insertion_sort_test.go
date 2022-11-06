@@ -13,8 +13,8 @@ func TestInsertionSort(t *testing.T) {
 		init []int
 		want []int
 	}{
-		{"1", []int{4, 2, 1, 3}, []int{1, 2, 3, 4}},
 		{"empty", []int{}, []int{}},
+		{"1", []int{4, 2, 1, 3}, []int{1, 2, 3, 4}},
 	} {
 		t.Run(tc.name, func(t *testing.T) {
 			// Initializing list

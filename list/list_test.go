@@ -103,3 +103,30 @@ func TestInsertAfter(t *testing.T) {
 		})
 	}
 }
+
+func TestRemove(t *testing.T) {
+	for _, tc := range []struct {
+		name  string
+		init  []int
+		input int
+		want  []int
+	}{
+		{"first", []int{0, 1, 2}, 0, []int{1, 2}},
+		{"last", []int{0, 1, 2}, 2, []int{0, 1}},
+		{"middle", []int{0, 1, 2}, 1, []int{0, 2}},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			// List initialization:
+			var l List
+			for i := len(tc.init) - 1; i >= 0; i-- {
+				l.PushFront(tc.init[i])
+			}
+
+			l.Remove(l.Find(tc.input))
+
+			if got := ListToSlice(&l); !reflect.DeepEqual(got, tc.want) {
+				t.Errorf("got = %v, want = %v", got, tc.want)
+			}
+		})
+	}
+}

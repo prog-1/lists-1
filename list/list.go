@@ -78,9 +78,23 @@ func (l *List) InsertAfter(v int, prev *Element) *Element {
 
 // It is here because seemes like we can't access functions from *_test files
 func ListToSlice(l *List) []int {
-	var s []int
+	s := make([]int, 0) // NOTE: not var s []int, because by default it gets initialized with nil, but I wanted to have an empty slice
 	for cur := l.head; cur != nil; cur = cur.Next() {
 		s = append(s, cur.Value)
 	}
 	return s
+}
+
+// Removes Element from List
+func (l *List) Remove(el *Element) {
+	if el == l.Front() { // is first
+		l.head = l.Front().next
+	} else {
+		for prev := l.Front(); prev.Next() != nil; prev = prev.Next() {
+			if prev.Next() == el {
+				prev.next = el.next
+				return
+			}
+		}
+	}
 }
