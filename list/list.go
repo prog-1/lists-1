@@ -51,19 +51,57 @@ func (l *List) PushFront(v int) {
 
 // PushBack inserts a new element at the back of list.
 func (l *List) PushBack(v int) {
-	// TODO
+	e := NewElement(v)
+	if l.len == 0 {
+		l.head, l.tail = e, e
+	} else {
+		//temp := l.head
+		//for temp.next != nil {
+		//temp = temp.next
+		//}
+		//temp.next = e
+		l.tail.next = e
+		l.tail = e
+	}
+	l.len++
 }
 
 // Find returns an element with a given value from the list or nil,
 // if the value is not found.
 func (l *List) Find(v int) *Element {
-	// TODO
+	/*if l.len == 0 {
+		return nil
+		/*} else if l.len == 1 {
+		if l.head.Value != v {
+			return nil
+		} else {
+			return l.head
+		}
+
+	} else {*/
+	temp := l.head
+	for temp.next != nil {
+		if temp.Value != v {
+			temp = temp.next
+		} else {
+			return temp
+		}
+	}
+	//}
 	return nil
 }
 
 // InsertAfter inserts a new element with a given value after
 // a particular element.
 func (l *List) InsertAfter(v int, prev *Element) *Element {
-	// TODO
-	return nil
+	e := NewElement(v)
+	temp := l.head
+	for temp != nil {
+		if temp.Value == prev.Value {
+			e.next = temp.next
+			temp.next = e
+		}
+		temp = temp.next
+	}
+	return e
 }
