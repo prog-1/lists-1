@@ -28,3 +28,8 @@ in the exercises below.
 
 1. Implement missing `list.List` methods and tests.
 2. Implement `InsertionSort` and `SortedInsert` functions and tests.
+
+You can earn additional points (up to 50%) for `InsertionSort` implementation which
+swaps the element pointers without destroying and creating elements. Please note that
+this may require additional `List` methods, since you cannot modify `Element.next` field
+outside of `github.com/prog-1/list` package (and making the field public is not desired).
