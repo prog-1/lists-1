@@ -11,8 +11,18 @@ type LessFunc func(a, b int) bool
 func InsertionSort(l *list.List, less LessFunc) {
 	// var n = l.Len()
 	// e := l.Front()
-	// var i, j uint
-	// for i = 0; i < n-1; i++ {
+	// for i := n - 1; i > 0; i-- {
+	// 	for c := uint(0); i > c; c++ {
+	// 		e = e.Next()
+	// 	}
+	// 	for j := i; j < n || e.Next() != nil; j++ {
+	// 		if less(e.Next().Value, e.Value) {
+	// 			e.Next().Value, e.Value = e.Value, e.Next().Value
+	// 		}
+	// 	}
+	// 	e = l.Front()
+	// }
+
 	// 	if !less(e.Value, e.Next().Value) {
 	// 		var tmp = l.Front()
 	// 		var swapped bool
