@@ -1,8 +1,6 @@
 package main
 
 import (
-	"fmt"
-
 	"github.com/prog-1/list"
 )
 
@@ -11,7 +9,11 @@ type LessFunc func(a, b int) bool
 
 // InsertionSort rearranges the list to become sorted.
 func InsertionSort(l *list.List, less LessFunc) {
-	// TODO
+	for n := l.Front().Next(); n != nil; n = n.Next() {
+		for k := n; k != l.Front() && k.Previous().Value > k.Value; k = k.Previous() {
+			l.SwapElements(k.Previous().Value, k.Value)
+		}
+	}
 }
 
 // SortedInsert inserts a new element with a given value in a sorted list
@@ -23,11 +25,25 @@ func SortedInsert(l *list.List, v int, less LessFunc) *list.Element {
 
 func main() {
 	var l list.List
-	l.PushBack(1)
-	l.PushBack(3)
-	l.PushBack(2)
-	l.PushFront(4)
-	for n := l.Front(); n != nil; n = n.Next() {
-		fmt.Println(n.Value)
+
+	l.PushBack(123)
+	//l.InsertAfter(l.RemoveAfter(nil), nil)
+	//moveNextElement(&l, nil, nil)
+	list.Print(&l)
+
+	for i := 1; i < 4; i++ {
+		l.PushBack(i)
+		l.PushFront(i + 3)
 	}
+	list.Print(&l)
+
+	less := func(a, b int) bool { return a > b }
+
+	InsertionSort(&l, less)
+	list.Print(&l)
+
+	for i := 0; i < 10; i++ {
+		SortedInsert(&l, i, less)
+	}
+	list.Print(&l)
 }
