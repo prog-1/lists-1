@@ -9,42 +9,35 @@ type LessFunc func(a, b int) bool
 
 // InsertionSort rearranges the list to become sorted.
 func InsertionSort(l *list.List, less LessFunc) {
-	var sorted *list.List = new(list.List)
-	for cur := (*l).Front(); cur != nil; cur = cur.Next() {
-		SortedInsert(sorted, cur.Value, func(a, b int) bool { return a < b })
-	}
-
 }
 
 // SortedInsert inserts a new element with a given value in a sorted list
 // (while preserving a sorted order);
 func SortedInsert(l *list.List, v int, less LessFunc) *list.Element {
-	cur := (*l).Front() // cur will be the last element with value smaller than v or equal to v
-	for cur != nil && cur.Next() != nil && cur.Next().Value < v {
+	if l.Front() == nil { // no elements
+		l.PushBack(v)
+		return l.Back()
+	}
+
+	if less(v, l.Front().Value) { // must go first
+		l.PushFront(v)
+		return l.Front()
+	}
+
+	cur := l.Front() // cur will be the last element with value smaller or equal to v
+	for cur.Next() != nil && less(cur.Next().Value, v) {
 		cur = cur.Next()
 	}
-	switch cur {
-	case nil:
-		(*l).PushBack(v)
-		return l.Back()
-	case l.Front():
-		if l.Front().Value > v {
-			l.PushFront(v)
-			return l.Front()
-		} else {
-			return (*l).InsertAfter(v, cur)
-		}
-	default:
-		return (*l).InsertAfter(v, cur)
-	}
+
+	return l.InsertAfter(v, cur)
+
 }
 
 func main() {
 	var l list.List
-	l.PushFront(4)
-	l.PushFront(2)
-	l.PushFront(1)
-	l.PushFront(3)
-	InsertionSort(&l, func(a, b int) bool { return a < b })
+	l.PushBack(0)
+	l.PushBack(1)
+	//InsertionSort(&l, func(a, b int) bool { return a < b })
+	SortedInsert(&l, 2, func(a, b int) bool { return a < b })
 	list.Print(&l)
 }

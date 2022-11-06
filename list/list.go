@@ -4,15 +4,6 @@ import (
 	"fmt"
 )
 
-// It is here because seemes like we can't access functions from *_test files
-func ListToSlice(l *List) []int {
-	var s []int
-	for cur := l.head; cur != nil; cur = cur.Next() {
-		s = append(s, cur.Value)
-	}
-	return s
-}
-
 // List represents a singly linked list.
 // https://en.wikipedia.org/wiki/Linked_list
 type List struct {
@@ -83,4 +74,13 @@ func (l *List) InsertAfter(v int, prev *Element) *Element {
 	e.next = prev.next
 	prev.next = e
 	return e
+}
+
+// It is here because seemes like we can't access functions from *_test files
+func ListToSlice(l *List) []int {
+	var s []int
+	for cur := l.head; cur != nil; cur = cur.Next() {
+		s = append(s, cur.Value)
+	}
+	return s
 }
