@@ -13,9 +13,9 @@ Package `github.com/prog-1/list` is implemented as a separate subpackage. Go
 provides an easy way to work with multiple packages. More information available
 at https://go.dev/doc/tutorial/workspaces.
 
-In addition to that we replace `github.com/prog-1/list` module paths to ensure
-this repo is self-contained and no external repos are required. Read more about
-this functionality at https://go.dev/ref/mod#go-mod-file-replace.
+In addition to that, we replace `github.com/prog-1/list` module paths to ensure
+this repo is self-contained and no external repos or packages are required. More
+information available at at https://go.dev/ref/mod#go-mod-file-replace.
 
 ## Home Exercises
 
