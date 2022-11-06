@@ -4,6 +4,15 @@ import (
 	"fmt"
 )
 
+// It is here because seemes like we can't access functions from *_test files
+func ListToSlice(l *List) []int {
+	var s []int
+	for cur := l.head; cur != nil; cur = cur.Next() {
+		s = append(s, cur.Value)
+	}
+	return s
+}
+
 // List represents a singly linked list.
 // https://en.wikipedia.org/wiki/Linked_list
 type List struct {
@@ -46,19 +55,32 @@ func (l *List) PushFront(v int) {
 
 // PushBack inserts a new element at the back of list.
 func (l *List) PushBack(v int) {
-	// TODO
+	e := NewElement(v)
+	if l.len == 0 {
+		l.head, l.tail = e, e
+	} else {
+		l.tail.next = e
+		l.tail = e
+	}
+	l.len++
 }
 
 // Find returns an element with a given value from the list or nil,
 // if the value is not found.
 func (l *List) Find(v int) *Element {
-	// TODO
+	for cur := l.head; cur != nil; cur = cur.next {
+		if cur.Value == v {
+			return cur
+		}
+	}
 	return nil
 }
 
 // InsertAfter inserts a new element with a given value after
 // a particular element.
 func (l *List) InsertAfter(v int, prev *Element) *Element {
-	// TODO
-	return nil
+	e := NewElement(v)
+	e.next = prev.next
+	prev.next = e
+	return e
 }
