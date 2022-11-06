@@ -11,6 +11,11 @@ type List struct {
 	len        uint
 }
 
+// Len returns the number of elements of list l. The complexity is O(1).
+func (l *List) Len() uint {
+	return l.len
+}
+
 // Front returns the first element of list or nil if the list is empty.
 func (l *List) Front() *Element {
 	return l.head
