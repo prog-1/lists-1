@@ -13,6 +13,7 @@ type List struct {
 
 func (l *List) Copy(src List) {
 	l.head, l.tail = src.head, src.tail
+	l.len = src.len
 }
 
 // Len returns the number of elements of list l. The complexity is O(1).
