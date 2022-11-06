@@ -11,6 +11,10 @@ type List struct {
 	len        uint
 }
 
+func (l *List) Copy(src List) {
+	l.head, l.tail = src.head, src.tail
+}
+
 // Len returns the number of elements of list l. The complexity is O(1).
 func (l *List) Len() uint {
 	return l.len
@@ -51,19 +55,37 @@ func (l *List) PushFront(v int) {
 
 // PushBack inserts a new element at the back of list.
 func (l *List) PushBack(v int) {
-	// TODO
+	e := NewElement(v)
+	if l.len == 0 {
+		l.head, l.tail = e, e
+	} else {
+		l.tail.next = e
+		l.tail = e
+	}
+	l.len++
 }
 
 // Find returns an element with a given value from the list or nil,
 // if the value is not found.
 func (l *List) Find(v int) *Element {
-	// TODO
+	for n := l.Front(); n != nil; n = n.Next() {
+		if n.Value == v {
+			return n
+		}
+	}
 	return nil
 }
 
 // InsertAfter inserts a new element with a given value after
 // a particular element.
 func (l *List) InsertAfter(v int, prev *Element) *Element {
-	// TODO
+	for n := l.Front(); n != nil; n = n.Next() {
+		if prev == n {
+			e := NewElement(v)
+			e.next = prev.next
+			prev.next = e
+			return e
+		}
+	}
 	return nil
 }
