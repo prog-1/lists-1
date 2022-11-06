@@ -54,11 +54,12 @@ func (l *List) PushBack(v int) {
 	e := NewElement(v)
 	if l.len == 0 {
 		l.head, l.tail = e, e
-
 	} else {
 		l.tail.next = e
 		l.tail = e
+
 	}
+	l.len++
 
 }
 
