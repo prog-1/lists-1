@@ -24,6 +24,27 @@ func TestList(t *testing.T) {
 	}
 }
 
+func TestPushBack(t *testing.T) {
+	for _, tc := range []struct {
+		name  string
+		input func() List
+		v     int
+		want  func() List
+	}{
+		{"empty", list(), 20, list(20)},
+		{"list", list(25, 20, 12), 90, list(25, 20, 12, 90)},
+		{"repeat", list(25, 20, 90), 90, list(25, 20, 90, 90)},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			got, want := tc.input(), tc.want()
+			got.PushBack(tc.v)
+			if !equal(got, want) {
+				t.Errorf("got = %v, want = %v", format(got), format(want))
+			}
+		})
+	}
+}
+
 func list(e ...int) func() List {
 	return func() (l List) {
 		for i := range e {
