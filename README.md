@@ -13,9 +13,9 @@ Package `github.com/prog-1/list` is implemented as a separate subpackage. Go
 provides an easy way to work with multiple packages. More information available
 at https://go.dev/doc/tutorial/workspaces.
 
-In addition to that we replace `github.com/prog-1/list` module paths to ensure
-this repo is self-contained and no external repos are required. Read more about
-this functionality at https://go.dev/ref/mod#go-mod-file-replace.
+In addition to that, we replace `github.com/prog-1/list` module paths to ensure
+this repo is self-contained and no external repos or packages are required. More
+information available at at https://go.dev/ref/mod#go-mod-file-replace.
 
 ## Home Exercises
 
@@ -26,5 +26,10 @@ for testing or implementation details.
 You have to add tests only for those functions that you have to implement or modify
 in the exercises below.
 
-1. Implement missing `list.List` methods and tests.
+1. Implement missing `github.com/prog-1/list.List` methods and tests.
 2. Implement `InsertionSort` and `SortedInsert` functions and tests.
+
+You can earn additional points (up to 50%) for `InsertionSort` implementation which
+swaps the element pointers without destroying and creating elements. Please note that
+this may require additional `github.com/prog-1/list.List` methods, since `github.com/prog-1/list.Element.next` field
+is private. Making the field public (or providing public setter) is not desired.
