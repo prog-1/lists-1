@@ -55,7 +55,7 @@ func (l *List) PushBack(v int) {
 	if l.len == 0 {
 		l.head, l.tail = e, e
 	} else {
-		//temp := l.head			thank god we have tail 🦊
+		//temp := l.head
 		//for temp.next != nil {
 		//temp = temp.next
 		//}
