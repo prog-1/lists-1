@@ -3,8 +3,51 @@ package list
 import (
 	"bytes"
 	"fmt"
+	"reflect"
 	"testing"
 )
+
+func listtoslice(l *List) []int {
+	var s []int
+	for n := l.Front(); n != nil; n = n.Next() {
+		s = append(s, n.Value)
+	}
+	return s
+}
+func slicetolistback(s []int) *List {
+	var l *List
+	for _, v := range s {
+		l.PushBack(v)
+	}
+	return l
+}
+func slicetolistfront(s []int) *List {
+	var l *List
+	for _, v := range s {
+		l.PushFront(v)
+	}
+	return l
+}
+func TestPushBack(t *testing.T) {
+	for _, tc := range []struct {
+		s    []int
+		n    int
+		want []int
+	}{
+
+		{[]int{}, 1, []int{1}},
+		{[]int{0, 120, 21}, 1, []int{0, 120, 21, 1}},
+		{[]int{1, 2, 54, 101, 4, 1}, 25, []int{1, 2, 54, 101, 4, 1, 25}},
+		{[]int{1, 2, 54, 101, 4, 1}, 3, []int{1, 2, 54, 101, 4, 1, 3}},
+		{[]int{1, 2, -54, 101, 4, -1, 5}, 190, []int{1, 2, -54, 101, 4, -1, 5, 190}},
+	} {
+		l := slicetolistfront(tc.s)
+		l.PushBack(tc.n)
+		if got := listtoslice(l); !reflect.DeepEqual(got, tc.want) {
+			t.Errorf("find(%v,%v) = %v, want %v", tc.s, tc.n, got, tc.want)
+		}
+	}
+}
 
 func TestList(t *testing.T) {
 	for _, tc := range []struct {
