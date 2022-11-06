@@ -10,14 +10,24 @@ import (
 type LessFunc func(a, b int) bool
 
 // InsertionSort rearranges the list to become sorted.
-func InsertionSort(l *list.List, less LessFunc) {
-	// TODO
+func InsertionSort(l *list.List, less LessFunc) *list.List {
+	var ls *list.List
+	for n := l.Front(); n != nil; n = n.Next() {
+		SortedInsert(ls, n.Value, less)
+	}
+	l = ls
+	return l
 }
 
 // SortedInsert inserts a new element with a given value in a sorted list
 // (while preserving a sorted order);
 func SortedInsert(l *list.List, v int, less LessFunc) *list.Element {
-	// TODO
+	for n := l.Front(); n != nil; n = n.Next() {
+		if n.Next() == nil || !less(n.Next().Value, v) {
+			return l.InsertAfter(v, n)
+		}
+	}
+	l.PushBack(v)
 	return nil
 }
 
@@ -27,7 +37,11 @@ func main() {
 	l.PushBack(3)
 	l.PushBack(2)
 	l.PushFront(4)
+	less := func(a, b int) bool {
+		return a < b
+	}
+	InsertionSort(&l, less)
 	for n := l.Front(); n != nil; n = n.Next() {
-		fmt.Println(n.Value)
+		fmt.Print(n.Value, " ")
 	}
 }
